@@ -9,9 +9,21 @@ interface ICreateCategoryDTO {
 
 class CategoriesRepositories implements ICategoriesRepository{
     private categories: Category[] = []
+
+    private static INSTANCE : CategoriesRepositories
     
-    constructor () {
+    private constructor () {
         this.categories = []
+    }
+    
+    public static getInstance() : CategoriesRepositories {
+        
+         if (!CategoriesRepositories.INSTANCE) {
+            CategoriesRepositories.INSTANCE = new CategoriesRepositories()
+         }
+
+         return CategoriesRepositories.INSTANCE
+
     }
 
    create( { description, name }: ICreateCategoryDTO): void {
