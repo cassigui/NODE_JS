@@ -1,49 +1,39 @@
-import { Category } from "../../models/category"
-import { ICategoriesRepository } from "../ICategoriesRepository"
 
-//DTO => data transfer object
-interface ICreateCategoryDTO {
-    name: string,
-    description: string,
-}
+import { Category } from "../../entities/category"
+
+import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository"
+
+import { Repository, getRepository } from "typeorm"
 
 class CategoriesRepositories implements ICategoriesRepository{
-    private categories: Category[] = []
+   
+     private repository: Repository<Category>
 
-    private static INSTANCE : CategoriesRepositories
+    //private static INSTANCE : CategoriesRepositories
     
-    private constructor () {
-        this.categories = []
-    }
-    
-    public static getInstance() : CategoriesRepositories {
-        
-         if (!CategoriesRepositories.INSTANCE) {
-            CategoriesRepositories.INSTANCE = new CategoriesRepositories()
-         }
-
-         return CategoriesRepositories.INSTANCE
-
+   constructor () {
+        this.repository = getRepository(Category)
     }
 
-   create( { description, name }: ICreateCategoryDTO): void {
-    const category = new Category()
-    
-    Object.assign(category, {
-        name,
+   async create( { description, name }: ICreateCategoryDTO): Promise<void> {
+     const category = this.repository.create ({
         description,
-        created_at: new Date()
-    })
+        name,
+     }) 
+    
+    await this.repository.save(category)
 
-    this.categories.push (category)
    }
 
-   list(): Category[] {
-      return this.categories
-   }
+   async list(): Promise<Category[]>{
+    const categories =  await this.repository.find()
+    return categories   
+}
 
-   findByName( name : string ): Category {
-       const category = this.categories.find(category => category.name === name)
+   async findByName( name : string ): Promise<Category> {
+    // Select * from categories where name = "name" 
+    // findOne => MAKE a select by 1.
+       const category = await this.repository.findOne({ name })
        return category
    }
 

@@ -44,8 +44,6 @@ async execute (file:Express.Multer.File):Promise<void> {
     
     categories.map (async (category) => {
       const {name, description} = category
-      
-
 
        const existCategory = this.categoriesRepository.findByName(name)
       
