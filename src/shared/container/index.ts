@@ -22,3 +22,5 @@ container.registerSingleton<IUserRepository> (
      UsersRepository
 )
 
+container.registerSingleton<IUserRep>
+
