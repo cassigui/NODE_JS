@@ -1,3 +1,4 @@
+import { inject, injectable } from  "tsyringe"
 
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository"
 
@@ -6,15 +7,13 @@ interface IRequest {
    description : string
 }
 
-//Definir o tipo de retorno
-//Alterar o retorno de erro
-//Acessar o repositorio
-//Retornar algo
-
-class CreateCategoryUseCase {
-   
-    constructor (private categoriesRepository: ICategoriesRepository) {
-    }
+@injectable() 
+class CreateCategoryUseCase {  
+    
+    constructor (
+        @inject("CategoriesRepositories")
+        private categoriesRepository: ICategoriesRepository)
+         {}
 
     async execute( {name, description}: IRequest): Promise<void> {
 

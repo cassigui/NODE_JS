@@ -1,6 +1,7 @@
 import express from "express"
 
 import "./database"
+import "./shared/container"
 
 import { categoriesRoutes } from "./routes/categories.routes"
 import { specificationsRoutes } from "./routes/Specifications.routes"

@@ -1,5 +1,4 @@
-
-import { Category } from "../../entities/category"
+import { Category } from "../../entities/Category"
 
 import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository"
 
@@ -10,7 +9,7 @@ class CategoriesRepositories implements ICategoriesRepository{
      private repository: Repository<Category>
 
     //private static INSTANCE : CategoriesRepositories
-    
+
    constructor () {
         this.repository = getRepository(Category)
     }
@@ -42,3 +41,4 @@ class CategoriesRepositories implements ICategoriesRepository{
 }
 
 export { CategoriesRepositories, ICreateCategoryDTO  }
+
