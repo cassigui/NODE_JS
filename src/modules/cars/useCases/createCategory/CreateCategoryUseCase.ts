@@ -1,4 +1,5 @@
 import { inject, injectable } from  "tsyringe"
+import { hash } from "bcrypt"
 
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository"
 
